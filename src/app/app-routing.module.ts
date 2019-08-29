@@ -5,11 +5,22 @@ import { DefaultLayoutComponent } from './containers/default-layout/default-layo
 const routes: Routes = [
   {
     path: '',
+    redirectTo: 'dashboard',
+    pathMatch: 'full',
+  },
+  {
+    path: '',
     component: DefaultLayoutComponent,
     data: {
-      title: 'Home',
-    }
-  }
+      title: 'Home'
+    },
+    children: [
+      {
+        path: 'dashboard',
+        loadChildren: () => import('./views/dashboard/dashboard.module').then(m => m.DashboardModule)
+      },
+    ]
+  },
 ];
 
 @NgModule({
