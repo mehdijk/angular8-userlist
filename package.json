@@ -21,7 +21,7 @@
     "@angular/router": "~8.0.3",
     "@coreui/angular": "^2.5.3",
     "@coreui/coreui": "^2.1.12",
-    "bootstrap": "4.1.1",
+    "bootstrap": "^4.3.1",
     "ngx-bootstrap": "^5.1.1",
     "ngx-perfect-scrollbar": "^8.0.0",
     "rxjs": "~6.4.0",

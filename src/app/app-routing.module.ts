@@ -21,6 +21,19 @@ const routes: Routes = [
       },
     ]
   },
+  {
+    path: 'users',
+    component: DefaultLayoutComponent,
+    data: {
+      title: 'User list'
+    },
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('./views/user/user.module').then(m => m.UserModule)
+      },
+    ]
+  },
 ];
 
 @NgModule({
