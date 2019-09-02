@@ -10,7 +10,7 @@
     <tbody>
       <tr *ngFor="let user of users">
         <th scope="row">{{user.id}}</th>
-        <td>{{user.name}}</td>
+        <td><a routerLink="{{user.id}}/detail">{{user.name}}</a></td>
         <td>{{user.age}}</td>
         <td>{{user.location}}</td>
       </tr>

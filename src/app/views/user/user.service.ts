@@ -16,5 +16,9 @@ export class UserService {
     return this.http.get<User[]>(this.SERVER_URL+"/users");
   }
 
+  getUserById(id:string):Observable<User>{
+    return this.http.get<User>(this.SERVER_URL+"/users/"+id)
+  }
+
  
 }
