@@ -1,4 +1,4 @@
-<form [formGroup]="userForm">
+<form [formGroup]="userForm" (submit)="addNew()">
     <div class="form-group">
       <label for="name">Name</label>
       <input formControlName="name" type="text" class="form-control" id="name" >
@@ -27,4 +27,7 @@
         <label for="generalInfo">General Info</label>
         <input  formControlName="generalInfo" type="text" class="form-control" id="generalInfo" >
     </div>
+    <div class="form-group" *ngIf="!id">
+      <button type="submit" >Create</button>
+  </div>
   </form>

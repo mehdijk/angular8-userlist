@@ -23,5 +23,9 @@ export class UserService {
   addNew(user:User):Observable<any>{
     return this.http.post(this.SERVER_URL+"/users",user);
   }
+
+  updateUser(user:User):Observable<any>{
+    return this.http.patch(this.SERVER_URL+"/users/"+user.id,user);
+  }
  
 }

@@ -7,14 +7,15 @@ const routes: Routes = [
   {
     path: '',
     component: UsersListComponent,
-   /*  data: {
-      title: 'User list'
-    } */
   },
   {
     path: ':id/detail',
     component: UsersDetailsComponent,
-  }
+  },
+  {
+    path: 'new',
+    component: UsersDetailsComponent,
+  },
 ];
 
 @NgModule({
