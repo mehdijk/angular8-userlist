@@ -20,5 +20,8 @@ export class UserService {
     return this.http.get<User>(this.SERVER_URL+"/users/"+id)
   }
 
+  addNew(user:User):Observable<any>{
+    return this.http.post(this.SERVER_URL+"/users",user);
+  }
  
 }

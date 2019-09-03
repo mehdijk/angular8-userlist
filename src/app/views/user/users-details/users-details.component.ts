@@ -26,7 +26,6 @@ export class UsersDetailsComponent implements OnInit {
   ngOnInit() {
     const id=this.route.snapshot.params.id;
     this.service.getUserById(id).subscribe(res=>this.userForm.patchValue(res))
-    
   }
 
 }

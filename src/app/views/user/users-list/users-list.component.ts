@@ -14,7 +14,15 @@ export class UsersListComponent implements OnInit {
   constructor(readonly service:UserService) {}
 
   ngOnInit() {
+    this.getUserList();
+  }
+
+  getUserList(){
     this.service.getUserList().subscribe(res=>this.users=res)
+  }
+
+  addNewUser(user){
+    this.service.addNew(user).subscribe(res=>this.getUserList())
   }
 
 }
