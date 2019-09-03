@@ -2,8 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../user.service';
 import { FormBuilder } from '@angular/forms';
-import { debounceTime } from 'rxjs/operators';
+import { debounceTime, concatMap, map } from 'rxjs/operators';
 import { User } from '../user';
+import { JsonPipe } from '@angular/common';
+import { of, Observable } from 'rxjs';
+import { Dog } from '../dog';
 
 
 @Component({
@@ -18,7 +21,9 @@ export class UsersDetailsComponent implements OnInit {
               readonly fb:FormBuilder,
               readonly router:Router) { }
 
-  id:string
+  id:string;
+  dogs:Dog[]=new Array();
+  allDogs:Dog[];
 
   userForm=this.fb.group({
     "name": [''],
@@ -26,6 +31,10 @@ export class UsersDetailsComponent implements OnInit {
     "sex": [''],
     "location": [''],
     "generalInfo": [''],
+  })
+
+  dogForm=this.fb.group({
+    "id": [''],
   })
 
   ngOnInit() {
@@ -36,10 +45,15 @@ export class UsersDetailsComponent implements OnInit {
         debounceTime(500)
       ).subscribe(res=>this.updateUser(res))
     }
+    this.service.getAllDogs().subscribe(dogs=>this.allDogs=dogs)
   }
 
   loadDetail(){
-    this.service.getUserById(this.id).subscribe(res=>this.userForm.patchValue(res))
+    this.service.getUserById(this.id).subscribe(user=>{
+      this.userForm.patchValue(user);
+      user.favoriteDogs.forEach((id)=>this.service.getDogById(id)
+          .subscribe(val=>this.dogs.push(val)));
+    })
   }
 
   addNew(){
@@ -48,7 +62,25 @@ export class UsersDetailsComponent implements OnInit {
   }
 
   updateUser(user:User){
-    this.service.updateUser({...user,id:+this.id}).subscribe(res=>console.log(res))
+    this.service.updateUser({...user,id:+this.id,favoriteDogs:this.dogs.map((x)=>x.id)})
+    .subscribe(console.log);
+  }
+
+  getDogById(id:number):Observable<Dog>{
+    return this.service.getDogById(id);
+  }
+
+  delete(dog:Dog){
+    const index = this.dogs.indexOf(dog, 0);
+    if (index > -1) {
+    this.dogs.splice(index, 1);
+    this.userForm.updateValueAndValidity();
+    }
+  }
+
+  addNewfevDog(){
+    //const dog=this.dogForm.value;
+    //to do
   }
 
 }

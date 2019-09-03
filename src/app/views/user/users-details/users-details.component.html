@@ -31,3 +31,30 @@
       <button type="submit" >Create</button>
   </div>
   </form>
+  <table class="table table-hover table-dark">
+    <thead>
+      <tr>
+        <th>Favorite Dogs</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let dog of dogs">
+        <td >{{dog.name}}</td>
+        <td><button class="btn btn-danger" (click)="delete(dog)">Del</button></td>
+      </tr>
+      <tr>
+      <tr>
+        <td colspan=2 >
+        <form [formGroup]="dogForm" (submit)="addNewfevDog()">
+            <select name="dogs" id="dogs" formControlName="id">
+                <option  *ngFor="let dog of allDogs" value="{{dog.id}}">{{dog.name}}</option>
+           </select>
+        <button class="btn btn-primary" >Add</button>
+      </form></td>
+      
+        </tr>
+      <tr>
+    </tbody>
+  </table>
+
