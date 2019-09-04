@@ -36,5 +36,9 @@ export class UserService {
   getAllDogs():Observable<Dog[]>{
     return this.http.get<Dog[]>(this.SERVER_URL+"/dogs");
   }
+
+  deleteUser(user:User):Observable<any>{
+    return this.http.delete(this.SERVER_URL+"/users/"+ user.id);
+  }
  
 }

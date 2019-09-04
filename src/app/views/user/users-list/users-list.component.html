@@ -5,6 +5,7 @@
         <th scope="col">Name</th>
         <th scope="col">Age</th>
         <th scope="col">Location</th>
+        <th scope="col"></th>
       </tr>
     </thead>
     <tbody>
@@ -13,6 +14,7 @@
         <td><a routerLink="{{user.id}}/detail">{{user.name}}</a></td>
         <td>{{user.age}}</td>
         <td>{{user.location}}</td>
+        <td><button class="btn btn-danger" (click)="delete(user)">Delete</button></td>
       </tr>
     </tbody>
   </table>

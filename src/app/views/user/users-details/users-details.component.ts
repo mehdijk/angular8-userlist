@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../user.service';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { debounceTime, concatMap, map } from 'rxjs/operators';
 import { User } from '../user';
 import { of, Observable } from 'rxjs';
@@ -21,11 +21,11 @@ export class UsersDetailsComponent implements OnInit {
               readonly router:Router) { }
 
   id:string;
-dogs:Dog[]=new Array();
+  dogs:Dog[]=new Array();
   allDogs:Dog[];
 
   userForm=this.fb.group({
-    "name": [''],
+    "name": ['',Validators.required],
     "age": [''],
     "sex": [''],
     "location": [''],
@@ -36,13 +36,34 @@ dogs:Dog[]=new Array();
     "id": [''],
   })
 
+  
+  public get name() {
+    return this.userForm.get("name");
+  }
+
+  public get sex() {
+    return this.userForm.get("sex"); 
+  }
+  
+  public get age() {
+    return this.userForm.get("age"); 
+  }
+  
+  
+
   ngOnInit() {
     this.id=this.route.snapshot.params.id;
     if (this.id){
       this.loadDetail();
       this.userForm.valueChanges.pipe(
         debounceTime(500)
-      ).subscribe(res=>this.updateUser(res))
+      ).subscribe(res=>{
+        if (this.userForm.status=='INVALID') {
+          this.userForm.markAllAsTouched();
+          return ;
+        }
+        this.updateUser(res)
+      })
     }
     this.service.getAllDogs().subscribe(dogs=>this.allDogs=dogs)
   }
@@ -56,6 +77,10 @@ dogs:Dog[]=new Array();
   }
 
   addNew(){
+    if (this.userForm.status=='INVALID') {
+      this.userForm.markAllAsTouched();
+      return ;
+    }
     const user:User=this.userForm.value;
     this.service.addNew(user).subscribe(res=>this.router.navigate(['users']));
   }
@@ -79,6 +104,7 @@ dogs:Dog[]=new Array();
 
   addNewfevDog(){
     const val=this.dogForm.value;
+    if (val.id==='') return;
     if (this.dogs.filter(dog=>dog.id==val.id).length==0){
       this.dogs.push(this.allDogs.filter((dog)=>dog.id==val.id)[0]);
     }

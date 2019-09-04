@@ -25,4 +25,8 @@ export class UsersListComponent implements OnInit {
     this.service.addNew(user).subscribe(res=>this.getUserList())
   }
 
+  delete(user:User){
+    this.service.deleteUser(user).subscribe(res=>this.getUserList());
+    
+  }
 }
