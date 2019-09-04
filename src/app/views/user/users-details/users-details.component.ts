@@ -4,7 +4,6 @@ import { UserService } from '../user.service';
 import { FormBuilder } from '@angular/forms';
 import { debounceTime, concatMap, map } from 'rxjs/operators';
 import { User } from '../user';
-import { JsonPipe } from '@angular/common';
 import { of, Observable } from 'rxjs';
 import { Dog } from '../dog';
 
@@ -22,7 +21,7 @@ export class UsersDetailsComponent implements OnInit {
               readonly router:Router) { }
 
   id:string;
-  dogs:Dog[]=new Array();
+dogs:Dog[]=new Array();
   allDogs:Dog[];
 
   userForm=this.fb.group({
@@ -79,8 +78,11 @@ export class UsersDetailsComponent implements OnInit {
   }
 
   addNewfevDog(){
-    //const dog=this.dogForm.value;
-    //to do
+    const val=this.dogForm.value;
+    if (this.dogs.filter(dog=>dog.id==val.id).length==0){
+      this.dogs.push(this.allDogs.filter((dog)=>dog.id==val.id)[0]);
+    }
+    this.userForm.updateValueAndValidity();
   }
 
 }

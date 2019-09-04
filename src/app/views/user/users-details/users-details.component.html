@@ -46,11 +46,11 @@
       <tr>
       <tr>
         <td colspan=2 >
-        <form [formGroup]="dogForm" (submit)="addNewfevDog()">
-            <select name="dogs" id="dogs" formControlName="id">
+        <form [formGroup]="dogForm" (submit)="addNewfevDog()" class="form-inline">
+            <select class="custom-select" name="dogs" id="dogs" formControlName="id">
                 <option  *ngFor="let dog of allDogs" value="{{dog.id}}">{{dog.name}}</option>
            </select>
-        <button class="btn btn-primary" >Add</button>
+        <button class="btn btn-primary ml-2" >Add</button>
       </form></td>
       
         </tr>
