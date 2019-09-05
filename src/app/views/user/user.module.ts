@@ -7,6 +7,7 @@ import { UsersDetailsComponent } from './users-details/users-details.component';
 import { UserService } from './user.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 @NgModule({
   declarations: [UsersListComponent, UsersDetailsComponent],
@@ -15,6 +16,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     UserRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    ModalModule.forRoot(),
   ],
   providers:[UserService]
 })

@@ -14,7 +14,27 @@
         <td><a routerLink="{{user.id}}/detail">{{user.name}}</a></td>
         <td>{{user.age}}</td>
         <td>{{user.location}}</td>
-        <td><button class="btn btn-danger" (click)="delete(user)">Delete</button></td>
+        <td><button class="btn btn-danger" (click)="delete(user,modalTemplate)">Delete</button></td>
       </tr>
     </tbody>
   </table>
+ 
+
+ 
+<ng-template #modalTemplate >
+  <div class="modal-header">
+    <h4 class="modal-title">Confirmation</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    Are you sure to delete <strong *ngIf="deleteUser">{{deleteUser.name}}</strong> user?
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="modalRef.hide()">Cancel</button>
+    <button type="button" class="btn btn-danger" (click)="ConfirmDelete()">Yes</button>
+  </div>
+</ng-template>
+
+

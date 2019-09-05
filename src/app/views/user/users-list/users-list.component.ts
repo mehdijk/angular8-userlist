@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { UserService } from '../user.service';
 import { User } from '../user';
+import { BsModalService, BsModalRef, ModalDirective } from 'ngx-bootstrap/modal';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-users-list',
@@ -10,8 +12,13 @@ import { User } from '../user';
 export class UsersListComponent implements OnInit {
 
   users:User[];
+  modalRef: BsModalRef;
+  deleteUser:User;
 
-  constructor(readonly service:UserService) {}
+
+  constructor(readonly service:UserService,
+              readonly modalService: BsModalService,
+              readonly changeDetection: ChangeDetectorRef) {}
 
   ngOnInit() {
     this.getUserList();
@@ -25,8 +32,17 @@ export class UsersListComponent implements OnInit {
     this.service.addNew(user).subscribe(res=>this.getUserList())
   }
 
-  delete(user:User){
-    this.service.deleteUser(user).subscribe(res=>this.getUserList());
-    
+  delete(user:User,template: TemplateRef<any>){
+    this.deleteUser=user;
+    this.modalRef = this.modalService.show(template);
   }
+
+  ConfirmDelete(){
+    this.modalRef.hide();
+   this.service.deleteUser(this.deleteUser).subscribe(res=>this.getUserList());
+    this.deleteUser=undefined;
+  }
+
+ 
+
 }

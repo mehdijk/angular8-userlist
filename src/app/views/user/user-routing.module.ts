@@ -7,14 +7,23 @@ const routes: Routes = [
   {
     path: '',
     component: UsersListComponent,
+    data: {
+      title: 'All users'
+    }
   },
   {
     path: ':id/detail',
     component: UsersDetailsComponent,
+    data: {
+      title: 'User detail'
+    }
   },
   {
     path: 'new',
     component: UsersDetailsComponent,
+    data: {
+      title: 'New user'
+    }
   },
 ];
 

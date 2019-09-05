@@ -71,8 +71,10 @@ export class UsersDetailsComponent implements OnInit {
   loadDetail(){
     this.service.getUserById(this.id).subscribe(user=>{
       this.userForm.patchValue(user);
-      user.favoriteDogs.forEach((id)=>this.service.getDogById(id)
-          .subscribe(val=>this.dogs.push(val)));
+      if(user.favoriteDogs) {
+        user.favoriteDogs.forEach((id)=>this.service.getDogById(id)
+        .subscribe(val=>this.dogs.push(val)));
+      }
     })
   }
 
@@ -81,7 +83,7 @@ export class UsersDetailsComponent implements OnInit {
       this.userForm.markAllAsTouched();
       return ;
     }
-    const user:User=this.userForm.value;
+    const user:User={...this.userForm.value, favoriteDogs:this.dogs.map(dog=>dog.id)};
     this.service.addNew(user).subscribe(res=>this.router.navigate(['users']));
   }
 
