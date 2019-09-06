@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { UserRoutingModule } from './user-routing.module';
 import { UsersListComponent } from './users-list/users-list.component';
 import { UsersDetailsComponent } from './users-details/users-details.component';
@@ -18,6 +17,6 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     ReactiveFormsModule,
     ModalModule.forRoot(),
   ],
-  providers:[UserService]
+  providers: [UserService]
 })
 export class UserModule { }

@@ -1,8 +1,7 @@
 import { Component, OnInit, TemplateRef, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { UserService } from '../user.service';
 import { User } from '../user';
-import { BsModalService, BsModalRef, ModalDirective } from 'ngx-bootstrap/modal';
-import { Subscription } from 'rxjs';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-users-list',
@@ -11,12 +10,12 @@ import { Subscription } from 'rxjs';
 })
 export class UsersListComponent implements OnInit {
 
-  users:User[];
+  users: User[];
   modalRef: BsModalRef;
-  deleteUser:User;
+  deleteUser: User;
 
 
-  constructor(readonly service:UserService,
+  constructor(readonly service: UserService,
               readonly modalService: BsModalService,
               readonly changeDetection: ChangeDetectorRef) {}
 
@@ -24,25 +23,23 @@ export class UsersListComponent implements OnInit {
     this.getUserList();
   }
 
-  getUserList(){
-    this.service.getUserList().subscribe(res=>this.users=res)
+  getUserList() {
+    this.service.getUserList().subscribe(res => this.users = res);
   }
 
-  addNewUser(user){
-    this.service.addNew(user).subscribe(res=>this.getUserList())
+  addNewUser(user: User) {
+    this.service.addNew(user).subscribe(res => this.getUserList());
   }
 
-  delete(user:User,template: TemplateRef<any>){
-    this.deleteUser=user;
+  delete(user: User, template: TemplateRef<any>) {
+    this.deleteUser = user;
     this.modalRef = this.modalService.show(template);
   }
 
-  ConfirmDelete(){
+  ConfirmDelete() {
     this.modalRef.hide();
-   this.service.deleteUser(this.deleteUser).subscribe(res=>this.getUserList());
-    this.deleteUser=undefined;
+    this.service.deleteUser(this.deleteUser).subscribe(res => this.getUserList());
+    this.deleteUser = undefined;
   }
-
- 
 
 }

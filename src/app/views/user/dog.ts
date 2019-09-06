@@ -1,4 +1,4 @@
-export interface Dog{
-    id:number;
-    name:string;
+export interface Dog {
+    id: number;
+    name: string;
 }

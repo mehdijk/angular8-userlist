@@ -19,17 +19,8 @@ const routes: Routes = [
         path: 'dashboard',
         loadChildren: () => import('./views/dashboard/dashboard.module').then(m => m.DashboardModule)
       },
-    ]
-  },
-  {
-    path: 'users',
-    component: DefaultLayoutComponent,
-    data: {
-      title: 'User list'
-    },
-    children: [
       {
-        path: '',
+        path: 'users',
         loadChildren: () => import('./views/user/user.module').then(m => m.UserModule)
       },
     ]
