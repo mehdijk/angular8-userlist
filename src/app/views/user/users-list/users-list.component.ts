@@ -16,8 +16,7 @@ export class UsersListComponent implements OnInit {
 
 
   constructor(readonly service: UserService,
-              readonly modalService: BsModalService,
-              readonly changeDetection: ChangeDetectorRef) {}
+              readonly modalService: BsModalService) {}
 
   ngOnInit() {
     this.getUserList();
